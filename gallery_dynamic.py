@@ -1,21 +1,20 @@
+#import
+
 import os
 from flask import Flask, render_template
 import ollama
 
-#################
+#get the list of images
 
 directory_path = '/home/fang.shen@Digital-Grenoble.local/Documents/Dev Web/ollama/static/images'
-files = os.listdir(directory_path)
+images = os.listdir(directory_path)
 
+#ask ollama to create stories
 
-###########################################
-
-
-############################################
 def generate_stories(images) :
-    stories = []
+    images_stories = {}
     for image in images :
-        image_path = os.path.join(directory_path, image)
+        image_path = os.path.join (directory_path, image)
         response = ollama.chat(
             model = "llava",
             messages = [
@@ -27,22 +26,20 @@ def generate_stories(images) :
             ]
         )
         story = response['message']['content']
-        stories.append(story)
-    return stories
 
-##########################################
+    images_stories[image] = story
+    return images_stories
+
+images_stories = generate_stories(images)
+
+#ask Flask to display
 
 app = Flask(__name__)
 
 @app.route('/')
-def gallery() :
-    try : 
-        image_stories = generate_stories(files)
-        data = [{'image' : image, 'story' : story} for story in zip(files, image_stories)]
-        return render_template('gallery2.html', data = data)
-    except Exception as e:
-        print(f"Error in gallery route: {str(e)}")
-        return "An error occurred while processing images and stories."
+def gallery() : 
+        
+        return render_template('gallery2.html', images_stories)
 
 if __name__ == '__main__':
     app.run(debug=True, port = 5001)
