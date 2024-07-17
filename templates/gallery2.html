@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Gallery</title>
+    <style>
+        .image-container {
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gallery</h1>
+    {% for item in data %}
+        <div class="image-container">
+            <img src="{{ url_for('static', filename=item['image']) }}">
+            <p>{{ item['story'] }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>
