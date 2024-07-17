@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset = "utf-8" />
+        <title> Storyscape : Fun stories for children </title>
+        <link rel="Stylesheet" href = "{{url_for('static', filename='css/style.css')}}" >
+    </head>
+
+    <body>
+
+        <header>
+            <h1 class="Storyscape"> Welcome to StoryScape: where  the magic begins! </h1>
+
+        </header>
+
+        <div class="page">
+            <ul class="nav">
+                Home
+                <a href = "https://www.google.com/" >Stories</a>
+                My Account
+                <a href = "http://127.0.0.1:5001/"> Gallery</a>
+                Contact Us
+            </ul>
+
+            <h2 class = "title1">
+                Fun Stories
+            </h2>
+            <h2 class = "title2">
+                For Children
+            </h2>
+            <img 
+                src = "{{url_for('static', filename='img/lion.png')}}"
+                width = "200"
+                height = "200"
+                class = "pic1"
+                >
+            <img 
+                src = "{{url_for('static', filename='img/enfant.png')}}"
+                width = "200"
+                height = "200"
+                class="pic2"
+                >
+
+        <p>Get ready to embark on thrilling adventures, meet fantastical creatures  and discover magical worlds. Our collection of children's stories is packed with excitement, humor and heart. From classic tales to brand new ones, our stories are designed to spark imagination and inspire young minds. So, come along and let the magic begin!
+        </p>
+
+        </div>
+
+    </body>
+
+</html>
