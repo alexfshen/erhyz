@@ -3,43 +3,46 @@
 import os
 from flask import Flask, render_template
 import ollama
+import glob
 
 #get the list of images
 
-directory_path = '/home/fang.shen@Digital-Grenoble.local/Documents/Dev Web/ollama/static/images'
-images = os.listdir(directory_path)
+urls = glob.glob('static/images/*.jpg')
 
 #ask ollama to create stories
 
-def generate_stories(images) :
-    images_stories = {}
-    for image in images :
-        image_path = os.path.join (directory_path, image)
-        response = ollama.chat(
-            model = "llava",
-            messages = [
-                {
-                    'role' : 'user',
-                    'content' : 'Create a story based on this image :',
-                    'imagines' : [image_path]
-                }
-            ]
-        )
-        story = response['message']['content']
+def generate_stories(urls) :
+    query = """
+    Can you write a story for kids inspired by the picture?
+    """
+        
+    res = ollama.chat(
+        model = "llava",
+        messages = [
+            {
+                'role' : 'user',
+                'content' : query,
+                'imagines' : [urls]
+            }
+        ]
+    )
 
-    images_stories[image] = story
-    return images_stories
+    return res['message']['content']
 
-images_stories = generate_stories(images)
 
 #ask Flask to display
 
 app = Flask(__name__)
 
+stories_python = []
+
 @app.route('/')
 def gallery() : 
-        
-        return render_template('gallery2.html', images_stories)
+    for url in urls :
+        story = generate_stories(url)
+        stories_python.append( (story, url) )
+    
+    return render_template('gallery2.html', stories=stories_python)
 
 if __name__ == '__main__':
     app.run(debug=True, port = 5001)

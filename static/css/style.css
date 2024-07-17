@@ -67,7 +67,7 @@ p {
     order: 4;
     color  : brown ;
     font-size : small ;
-    text-align: right ;
+    text-align:left ;
 }
 
 .container {
@@ -91,4 +91,9 @@ p {
   font-weight : bolder ;
   text-align : center ;
   background-color: #335c99;
+}
+
+.img_gallery{
+    height: 300px;
+    width: 300px;
 }

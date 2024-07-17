@@ -2,22 +2,20 @@
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/style.css">
     <title>Gallery</title>
-    <style>
-        .image-container {
-            display: inline-block;
-            text-align: center;
-            margin: 10px;
-        }
-    </style>
+    
 </head>
 <body>
     <h1>Gallery</h1>
-    {% for item in data %}
-        <div class="image-container">
-            <img src="{{ url_for('static', filename=item['image']) }}">
-            <p>{{ item['story'] }}</p>
-        </div>
+    {% for story, url in stories %}
+    <p>
+    <img src="{{ url }}", class = "img_gallery">
+    </p>
+    <p>
+    {{ story }}
+    </p>
     {% endfor %}
+
 </body>
 </html>
